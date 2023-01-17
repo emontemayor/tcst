@@ -20,7 +20,7 @@ class App:
         root.resizable(width=False, height=False)
 
         # Source file label
-        source_label = tk.Label(root, text="Source Workbook:")
+        source_label = tk.Label(root, text="Calendar:")
         source_label.place(x=30,y=30)
 
         self.source_file_label = tk.Label(root, text='No File Selected')
@@ -31,7 +31,7 @@ class App:
         source_browse_button.place(x=320,y=30)
         
         # Target file label
-        target_label = tk.Label(root, text="Target Workbook:")
+        target_label = tk.Label(root, text="Cohort Schedule:")
         target_label.place(x=30,y=70)
 
         self.target_file_label = tk.Label(root, text='No File Selected')
@@ -60,7 +60,12 @@ class App:
         self.status_label.config(text="")
 
     def submit(self):
-        self.status_label.config(text="Loading...")
+        try:
+            wb1.save('Cohort Schedules Tracking test2.xlsx')
+            self.status_label.config(text="Loading..")
+        except: 
+            self.status_label.config(text="Error: Close Excel Files")
+
         # here you have access to the source and target files
         source_file_name = self.source_file_label['text']
         target_file_name = self.target_file_label['text']
@@ -75,12 +80,14 @@ class App:
         try: 
             wsC = wb2['Primary']
         except:
-            wsC = wb2['Template']
+            try:
+                wsC = wb2['Template']
+            except: 
+                self.status_label.config(text="Workbook Name Mismatch")
 
         #Split name of wb2 to isolate name of program
         targetWS = wb2Name.split()
         ws = wb1[targetWS[0]]
-
 
         #Find number of rows to be copied and inserted. compare val of a and b cells, 
         #increase b by one (one row down) and repeat until section is over. a starts at 3 to make up for header
@@ -116,7 +123,6 @@ class App:
 
         #Find cells with a 'credit' value, meaning rows with course listing on them. Obtain global 'term' for current term as wel
         
-        #term = 'none' 1:17 commented this out
         def iterate():
             for row in wsC.iter_rows():
                 for cell in row:
@@ -164,9 +170,27 @@ class App:
             #Move to next row for next iteration
             row += 1
             rowCounter += 1
+        
+        #Format columns with numbers on them. 
+        col = ws.column_dimensions['C']
+        col.number_format = '0.00E+00'
 
-        self.status_label.config(text="Complete!")
-        wb1.save('Cohort Schedules Tracking test2.xlsx')
+        col = ws.column_dimensions['E']
+        col.number_format = '0.00E+00'
+
+        #format columns with dates on themn.
+        col = ws.column_dimensions['G']
+        col.number_format = "DD/MM/YY"
+
+        col = ws.column_dimensions['H']
+        col.number_format = "DD/MM/YY"
+
+        #show complete flag and save.
+        try:
+            wb1.save('Cohort Schedules Tracking test2.xlsx')
+            self.status_label.config(text="Complete!")
+        except: 
+            self.status_label.config(text="Error: Close Excel Files")
 
 root = tk.Tk()
 app = App(root)
