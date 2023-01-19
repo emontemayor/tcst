@@ -3,6 +3,7 @@
 
 from ast import Try, While
 from openpyxl import load_workbook
+from openpyxl.styles import NamedStyle
 # Python program to create
 # a file explorer in Tkinter
 # import filedialog module
@@ -10,6 +11,7 @@ from tkinter import filedialog
 import tkinter as tk
 import os
 import time
+
 
 class App:
     def __init__(self, root):
@@ -75,6 +77,12 @@ class App:
         #prepare Cohort Sched excel workbook and sheet to be added
         wb1 = load_workbook(target_file_name)
         wb2 = load_workbook(source_file_name)
+        
+        date_style = NamedStyle(name='date_style')
+        date_style.number_format='DD/MM/YYYY'
+
+        number_style = NamedStyle(name='number_style')
+        number_style.number_format='0.00E+00'
 
         #Obtain primary worksheet from source
         try: 
@@ -106,7 +114,7 @@ class App:
         ws.insert_rows(2, counter)
 
         #copy header of section to obtain style/color
-        ws.cell(row=2, column=1).style = ws.cell(row=(counter+2), column=1).style
+       # ws.cell(row=2, column=1).style = ws.cell(row=(counter+2), column=1).style
         ws.cell(row=2, column=1).value = targetWS[0] + " " + targetWS[1]
 
         #obtain section from copied ws and paste under 'program'
@@ -156,34 +164,26 @@ class App:
     
             #Write down course name and number
             ws.cell(row, col).value = str(currentCell.offset(0, -1).value).split()[0] + " " + str(currentCell.offset(0, -1).value).split()[1].replace(':','')
-            
+
             #Write down term
+            ws.cell(row, col+1).style = 'number_style'
             ws.cell(row, col+1).value = term
-            
+
             #write down weeks
+            ws.cell(row, col+3).style = 'number_style'
             ws.cell(row, col+3).value = str(currentCell.offset(0, 2).value)
-            
+
+
             #Write down dates
+            ws.cell(row, col+5).style = 'date_style'
+            ws.cell(row, col+6).style = 'date_style'
+
             ws.cell(row, col+5).value = str(currentCell.offset(0, 1).value).split()[0]
-            ws.cell(row, col+6).value = str(currentCell.offset(0, 1).value).split()[2]
-            
+            ws.cell(row, col+6).value = str(currentCell.offset(0, 1).value).split()[2]         
+
             #Move to next row for next iteration
             row += 1
             rowCounter += 1
-        
-        #Format columns with numbers on them. 
-        col = ws.column_dimensions['C']
-        col.number_format = '0.00E+00'
-
-        col = ws.column_dimensions['E']
-        col.number_format = '0.00E+00'
-
-        #format columns with dates on themn.
-        col = ws.column_dimensions['G']
-        col.number_format = "DD/MM/YY"
-
-        col = ws.column_dimensions['H']
-        col.number_format = "DD/MM/YY"
 
         #show complete flag and save.
         try:
