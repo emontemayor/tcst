@@ -166,7 +166,6 @@ class App:
             ws.cell(row, col+3).style = 'number_style'
             ws.cell(row, col+3).value = str(currentCell.offset(0, 2).value)
 
-
             #Write down dates
             ws.cell(row, col+5).style = 'date_style'
             ws.cell(row, col+6).style = 'date_style'
