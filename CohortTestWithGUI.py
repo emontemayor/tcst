@@ -1,20 +1,16 @@
-#Important to tell Tammy
-#Must change names on CST to match file names given.
-
-from ast import Try, While
-from openpyxl import load_workbook
-from openpyxl.styles import NamedStyle
 # Python program to create
 # a file explorer in Tkinter
 # import filedialog module
+from openpyxl import load_workbook
+from openpyxl.styles import NamedStyle
 from tkinter import filedialog
 import tkinter as tk
 import os
-import time
-
 
 class App:
     def __init__(self, root):
+
+#/--------------------------------GUI------------------------------/
         #setting title
         root.title("Tammy's Cohort Sched Tool")
         #setting window size
@@ -61,9 +57,12 @@ class App:
         self.target_file_label.config(text=os.path.basename(target_file))
         self.status_label.config(text="")
 
+#/--------------------------------Submit Algorithm------------------------------/
+    #Submit button function. Will attempt to load CST.xlsx file first, then impor the data
+    #from the calendar into the CST.xlsx file.
     def submit(self):
         try:
-            wb1.save('Cohort Schedules Tracking test2.xlsx')
+            wb1.save(target_file_name)
             self.status_label.config(text="Loading..")
         except: 
             self.status_label.config(text="Error: Close Excel Files")
@@ -71,8 +70,6 @@ class App:
         # here you have access to the source and target files
         source_file_name = self.source_file_label['text']
         target_file_name = self.target_file_label['text']
-        #Obtain name of worksheet to be added
-        wb2Name = source_file_name
 
         #prepare Cohort Sched excel workbook and sheet to be added
         wb1 = load_workbook(target_file_name)
@@ -84,7 +81,7 @@ class App:
         number_style = NamedStyle(name='number_style')
         number_style.number_format='0.00E+00'
 
-        #Obtain primary worksheet from source
+        #Obtain primary worksheet from source. Check if Template is used instead of primary. Otherwise ask user to switch WS names.
         try: 
             wsC = wb2['Primary']
         except:
@@ -94,7 +91,7 @@ class App:
                 self.status_label.config(text="Workbook Name Mismatch")
 
         #Split name of wb2 to isolate name of program
-        targetWS = wb2Name.split()
+        targetWS = source_file_name.split()
         ws = wb1[targetWS[0]]
 
         #Find number of rows to be copied and inserted. compare val of a and b cells, 
@@ -112,9 +109,6 @@ class App:
             b = ws.cell(row=i, column=1)
 
         ws.insert_rows(2, counter)
-
-        #copy header of section to obtain style/color
-       # ws.cell(row=2, column=1).style = ws.cell(row=(counter+2), column=1).style
         ws.cell(row=2, column=1).value = targetWS[0] + " " + targetWS[1]
 
         #obtain section from copied ws and paste under 'program'
@@ -130,7 +124,6 @@ class App:
                     cell.value = cell.value.replace(".xlsx", "") 
 
         #Find cells with a 'credit' value, meaning rows with course listing on them. Obtain global 'term' for current term as wel
-        
         def iterate():
             for row in wsC.iter_rows():
                 for cell in row:
@@ -177,7 +170,6 @@ class App:
             #Write down dates
             ws.cell(row, col+5).style = 'date_style'
             ws.cell(row, col+6).style = 'date_style'
-
             ws.cell(row, col+5).value = str(currentCell.offset(0, 1).value).split()[0]
             ws.cell(row, col+6).value = str(currentCell.offset(0, 1).value).split()[2]         
 
@@ -187,7 +179,7 @@ class App:
 
         #show complete flag and save.
         try:
-            wb1.save('Cohort Schedules Tracking test2.xlsx')
+            wb1.save(target_file_name)
             self.status_label.config(text="Complete!")
         except: 
             self.status_label.config(text="Error: Close Excel Files")
