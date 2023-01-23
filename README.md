@@ -4,9 +4,9 @@ Tammy's Cohort Scheduling Tool
 ==============
 An internal tool created for Bellevue Universiy's College of Science and Technology (CST).
 This tool will migrate infomration listed in BU's course calendars into a cohort schedule tracker.
---------------
 
-[SETUP]
+
+SETUP
 -----------------------------------------------------------------------------------------	
 One time set up steps:
 1. Change the Cohort Schedules Tracking excel file WORKSHEET NAMES to match the FILE NAMES of the calendars. Take for example the Masters of Emergency Managment:
@@ -25,7 +25,7 @@ One time set up steps:
 	- Clear the "Cells containing years represented as 2 digits" box 
 	- Click OK.
 
-[USER GUIDE]
+USER GUIDE
 -----------------------------------------------------------------------------------------
 1. Close Cohort Schedules Tracking.xls, it must remain closed until the program raises the 'Complete' flag
 2. Launch the tool
@@ -34,14 +34,14 @@ One time set up steps:
 5. Press submit, wait for the 'Complete' notification.
 6. If you wish to add more calendars, select the other files and submit them one by one. There is no need to change the cohort schedule field for repeated entries. 
 
-[ERRORS]
+ERRORS
 -----------------------------------------------------------------------------------------	
 - Workbook Name Mismatch: The calendar being added has a name other than 'Primary' or 
   'Template'. Chang the workbook name on the calendar to either 'Primary' or 'Template' and this error should resolve. 
 
 - Error: Close Excel Files: The program struggled aquiring permission to edit the files. Make sure to close the Cohort Schedule Tracking.xls. This excel file MUST be closed for the tool to complete its job.
 
-[LIMITATIONS]
+LIMITATIONS
 -----------------------------------------------------------------------------------------	
 - Cohort Schedule must be accessible. Ensure it is closed during operation of the tool.
 	
@@ -51,6 +51,6 @@ Note: contact emontemayor@bellevue.edu if you wish to modify the tracker file to
 		
 - The tool is also based on the structure of the current calendars as of January 2023. Any future changes to the calendar formats will require reprogramming the tool.
 
-[BUGS]
+BUGS
 -----------------------------------------------------------------------------------------	
 Should errors persist or unintended edits occur, contact emontemayor@bellevue.edu for guidance and troubleshooting. 
