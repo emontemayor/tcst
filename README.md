@@ -1,6 +1,4 @@
-# CohortTest
-
-Tammy's Cohort Scheduling Tool 
+# Tammy's Cohort Scheduling Tool 
 ==============
 An internal tool created for Bellevue Universiy's College of Science and Technology (CST).
 This tool will migrate infomration listed in BU's course calendars into a cohort schedule tracker.
