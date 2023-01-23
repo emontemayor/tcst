@@ -55,15 +55,11 @@ One time set up steps:
 	
 	- Cohort Schedule must be accessible. Ensure it is closed during operation of the tool.
 	
-	- The tool is based on College of Science and Technology's Cohort Schedules Tracking.xls by Tammy  	
-	  Bosely as of January 2023. It will add Program, Course #, Term, Day, Week, Start and End dates. 
-	  The columns on the Cohort Schedule Tracking.xls MUST remain in the current position, and no new 
-	  columns may be added or subtracted without interrupting the tool. 
-		Note: contact emontemayor@bellevue.edu if you wish to modify the tracker file to fit a new 
-		infrastructure. Updating or creating alternate versions of the tool is possible.
+	- The tool is based on College of Science and Technology's Cohort Schedules Tracking.xls by Tammy Bosely as of January 2023. It will add Program, Course #, Term, Day, Week, Start and End dates.The columns on the Cohort Schedule Tracking.xls MUST remain in the current position, and no new columns may be added or subtracted without interrupting the tool. 
+
+Note: contact emontemayor@bellevue.edu if you wish to modify the tracker file to fit a new infrastructure. Updating or creating alternate versions of the tool is possible.
 		
-	- The tool is also based on the structure of the current calendars as of January 2023. Any future 
-	  changes to the calendar formats will require reprogramming the tool.
+	- The tool is also based on the structure of the current calendars as of January 2023. Any future changes to the calendar formats will require reprogramming the tool.
 -----------------------------------------------------------------------------------------	
 [BUGS]
 Should errors persist or unintended edits occur, contact emontemayor@bellevue.edu for guidance and troubleshooting. 
